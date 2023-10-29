@@ -1,0 +1,19 @@
+{
+  "name": "ignite-nodejs-04-ddd-clean-architecture",
+  "version": "1.0.0",
+  "description": "Design dirigido à domínio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rocketseat/eslint-config": "^2.1.0",
+    "@types/node": "^20.8.9",
+    "eslint": "^8.52.0",
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
+  }
+}
