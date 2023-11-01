@@ -108,3 +108,21 @@ Um evento de domínio (domain event) é uma notificação assíncrona que indica
 Por exemplo, em um sistema de comércio eletrônico, um evento de domínio pode ser gerado quando uma nova compra é realizada com sucesso. Esse evento pode conter informações como o identificador da compra, o valor total, o endereço de entrega, entre outras informações relevantes para o domínio.
 
 Eventos de domínio são importantes porque permitem que diferentes partes do sistema sejam notificadas e atualizadas quando ocorrem mudanças importantes no domínio. Eles também permitem que o sistema seja projetado de forma mais modular e escalável, pois diferentes partes do sistema podem ser projetadas para reagir a diferentes tipos de eventos, de forma independente.
+
+# Clean Architecture
+
+![CleanArchitecture](https://github.com/Kemuel-Batista/ignite-nodejs-04-ddd-clean-architecture/assets/62821098/b529c4f1-b830-4b1b-ae3a-2f8b38f5fd7e)
+
+Muitas das vezes a gente entende arquitetura limpa de uma maneira muito mais complexa do que ela realmente é.
+
+Temos que entender que cada ciclo que existe no diagrama, eles representam uma parte da nossa aplicação e o usuário ele está na camada mais externa, as flechas indicam de onde o usuário está vindo até onde ele chega, 
+
+Camada Azul (Camada de Infraestrutura) = normalmente o usuário se "conecta" por meio da Web, UI, DB, External Interfaces or Devices, camada que não temos total controle, camada de banco de dados, interação dos usuários
+
+Camada Verde = camada que vai adaptar a informação que está vindo da camada azul para uma maneira que a camada mais interna entenda, mas o mais importante não é adaptar os dados em si, mas proteger as camadas mais internas da implementação direta da camada de infraestrutura. Olhando para o SOLID, um dos principais conceitos é a inversão de dependência (parte do código não dependa diretamente da implementação de uma outra camada de abstração, um contrato). Isso tem total conexão com o clean architecture, pois nossos casos de uso não podem dependender da implementação da nossa camada de infraestrutura
+
+Camada Vermelha = Casos de uso da aplicação, que deve está desacoplada conforme falado anteriormente
+
+Camada Amarela = Entidades da aplicação
+
+As flechas representam a dependência entre as camadas, as flechas vai do mais externo para o mais interno, isso quer dizer que a camada de casos de uso (funcionalidades da aplicação) ela pode fazer importações diretas para a camada de entidades, podemos importar uma entidade para a camada de caso de uso mas a entidade não pode importar nada de caso de uso e assim sucessivamente
