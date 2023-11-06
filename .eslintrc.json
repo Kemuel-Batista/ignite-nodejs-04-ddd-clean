@@ -7,8 +7,8 @@
     "vitest-globals/env": true
   },
   "rules": {
-    "camelcase": "off",
     "no-useless-constructor":"off",
+    "no-new": "off",
     "@typescript-eslint/adjacent-overload-signatures": "off"
   }
 }
