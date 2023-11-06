@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { InMemoryAnswersRepository } from '../../../../../../test/repositories/in-memory-answers-repository'
 import { AnswerQuestionUseCase } from './answer-question'
-import { InMemoryAnswersRepository } from '../../../../../test/repositories/in-memory-answers-repository'
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository
 let sut: AnswerQuestionUseCase

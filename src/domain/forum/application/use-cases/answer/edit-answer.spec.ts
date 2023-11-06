@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { InMemoryAnswersRepository } from '../../../../../test/repositories/in-memory-answers-repository'
-import { makeAnswer } from '../../../../../test/factories/make-answer'
+import { makeAnswer } from '../../../../../../test/factories/make-answer'
+import { InMemoryAnswersRepository } from '../../../../../../test/repositories/in-memory-answers-repository'
 import { EditAnswerUseCase } from './edit-answer'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 

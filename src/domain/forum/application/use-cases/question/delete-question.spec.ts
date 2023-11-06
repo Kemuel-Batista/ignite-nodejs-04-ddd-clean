@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { InMemoryQuestionsRepository } from '../../../../../test/repositories/in-memory-questions-repository'
-import { makeQuestion } from '../../../../../test/factories/make-question'
-import { EditQuestionUseCase } from './edit-question'
+import { makeQuestion } from '../../../../../../test/factories/make-question'
+import { InMemoryQuestionsRepository } from '../../../../../../test/repositories/in-memory-questions-repository'
+import { DeleteQuestionUseCase } from './delete-question'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 let inMemoryQuestionsRepository: InMemoryQuestionsRepository
-let sut: EditQuestionUseCase
+let sut: DeleteQuestionUseCase
 
-describe('Edit Question Use Case', () => {
+describe('Delete Question Use Case', () => {
   beforeEach(() => {
     inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
-    sut = new EditQuestionUseCase(inMemoryQuestionsRepository)
+    sut = new DeleteQuestionUseCase(inMemoryQuestionsRepository)
   })
 
-  it('should be able to edit a question', async () => {
+  it('should be able to delete a question', async () => {
     const newQuestion = makeQuestion(
       {
         authorId: new UniqueEntityID('author-1'),
@@ -24,19 +24,14 @@ describe('Edit Question Use Case', () => {
     await inMemoryQuestionsRepository.create(newQuestion)
 
     await sut.execute({
+      questionId: 'question-1',
       authorId: 'author-1',
-      questionId: newQuestion.id.toValue(),
-      title: 'Pergunta teste',
-      content: 'Conteudo teste',
     })
 
-    expect(inMemoryQuestionsRepository.items[0]).toMatchObject({
-      title: 'Pergunta teste',
-      content: 'Conteudo teste',
-    })
+    expect(inMemoryQuestionsRepository.items).toHaveLength(0)
   })
 
-  it('should not be able to edit a question from another user', async () => {
+  it('should not be able to delete a question from another user', async () => {
     const newQuestion = makeQuestion(
       {
         authorId: new UniqueEntityID('author-1'),
@@ -48,10 +43,8 @@ describe('Edit Question Use Case', () => {
 
     expect(() => {
       return sut.execute({
+        questionId: 'question-1',
         authorId: 'author-2',
-        questionId: newQuestion.id.toValue(),
-        title: 'Pergunta teste',
-        content: 'Conteudo teste',
       })
     }).rejects.toBeInstanceOf(Error)
   })

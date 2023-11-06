@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import { QuestionsRepository } from '../repositories/questions-repository'
+import { QuestionsRepository } from '../../repositories/questions-repository'
 
 interface DeleteQuestionUseCaseRequest {
   authorId: string

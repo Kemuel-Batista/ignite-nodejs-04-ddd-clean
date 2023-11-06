@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-interface */
-import { Question } from '../../enterprise/entities/question'
-import { QuestionsRepository } from '../repositories/questions-repository'
+import { Question } from '@/domain/forum/enterprise/entities/question'
+import { QuestionsRepository } from '../../repositories/questions-repository'
 
 interface EditQuestionUseCaseRequest {
   authorId: string
