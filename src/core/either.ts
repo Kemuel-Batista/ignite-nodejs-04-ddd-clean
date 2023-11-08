@@ -1,53 +1,53 @@
 /**
  * FUNCTIONAL ERROR HANDLING
- * LEFT / RIGHT
+ * ERROR / SUCCESS
  *
- * UI -> CONTROLLER -> CASOS DE USO -> ENTIDADE -> CASOS DE USO -> REPOSITORIO -> BANCO DE DADOS (FLUXO INDO PARA DENTRO (RIGHT))
+ * UI -> CONTROLLER -> CASOS DE USO -> ENTIDADE -> CASOS DE USO -> REPOSITORIO -> BANCO DE DADOS (FLUXO INDO PARA DENTRO (SUCCESS))
  *
- * Quando colocado na função this is -> estamos informando ao typescript que no Caso da Classe<Left|Right> quando ela for chamado
- * o método isRight, eu assumo automaticamente que o retorno dali para frente da variavel é do Tipo Right ou Left
+ * Quando colocado na função this is -> estamos informando ao typescript que no Caso da Classe<Error|Success> quando ela for chamado
+ * o método isSuccess, eu assumo automaticamente que o retorno dali para frente da variavel é do Tipo Success ou Error
  */
 
 // Error
-export class Left<L, R> {
-  readonly value: L
+export class Error<E, S> {
+  readonly value: E
 
-  constructor(value: L) {
+  constructor(value: E) {
     this.value = value
   }
 
-  isRight(): this is Right<L, R> {
+  isSuccess(): this is Success<E, S> {
     return false
   }
 
-  isLeft(): this is Left<L, R> {
+  isError(): this is Error<E, S> {
     return true
   }
 }
 
 // Sucess
-export class Right<L, R> {
-  readonly value: R
+export class Success<E, S> {
+  readonly value: S
 
-  constructor(value: R) {
+  constructor(value: S) {
     this.value = value
   }
 
-  isRight(): this is Right<L, R> {
+  isSuccess(): this is Success<E, S> {
     return true
   }
 
-  isLeft(): this is Left<L, R> {
+  isError(): this is Error<E, S> {
     return false
   }
 }
 
-export type Either<L, R> = Left<L, R> | Right<L, R>
+export type Either<E, S> = Error<E, S> | Success<E, S>
 
-export const left = <L, R>(value: L): Either<L, R> => {
-  return new Left(value)
+export const error = <E, S>(value: E): Either<E, S> => {
+  return new Error(value)
 }
 
-export const right = <L, R>(value: R): Either<L, R> => {
-  return new Right(value)
+export const success = <E, S>(value: S): Either<E, S> => {
+  return new Success(value)
 }
