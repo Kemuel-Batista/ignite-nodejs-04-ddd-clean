@@ -1,11 +1,11 @@
-import { Either, error, success } from './either'
+import { Either, failure, success } from './either'
 
 describe('Either', () => {
   function doSomething(shouldSuccess: boolean): Either<string, number> {
     if (shouldSuccess) {
       return success(10)
     } else {
-      return error('error')
+      return failure('failure')
     }
   }
 
@@ -15,10 +15,10 @@ describe('Either', () => {
   //   expect(success.value).toEqual('success')
   // })
 
-  // it('error result', () => {
-  //   const error = error('error')
+  // it('failure result', () => {
+  //   const failure = failure('failure')
 
-  //   expect(error.value).toEqual('error')
+  //   expect(failure.value).toEqual('failure')
   // })
 
   it('success result', () => {
@@ -28,7 +28,7 @@ describe('Either', () => {
     expect(result.isError()).toBe(false)
   })
 
-  it('error result', () => {
+  it('failure result', () => {
     const result = doSomething(false)
 
     expect(result.isError()).toBe(true)
