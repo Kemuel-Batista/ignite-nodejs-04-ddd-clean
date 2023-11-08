@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { makeAnswer } from '../../../../../../test/factories/make-answer'
 import { InMemoryAnswersRepository } from '../../../../../../test/repositories/in-memory-answers-repository'
+import { NotAllowedError } from '../errors/not-allowed-error'
 import { EditAnswerUseCase } from './edit-answer'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
@@ -44,12 +45,13 @@ describe('Edit Answer', () => {
 
     await inMemoryAnswersRepository.create(newAnswer)
 
-    expect(() => {
-      return sut.execute({
-        answerId: newAnswer.id.toValue(),
-        authorId: 'author-2',
-        content: 'Conteúdo teste',
-      })
-    }).rejects.toBeInstanceOf(Error)
+    const result = await sut.execute({
+      answerId: newAnswer.id.toValue(),
+      authorId: 'author-2',
+      content: 'Conteúdo teste',
+    })
+
+    expect(result.isError()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 })

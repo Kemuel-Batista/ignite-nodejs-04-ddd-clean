@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { makeQuestion } from '../../../../../../test/factories/make-question'
 import { InMemoryQuestionsRepository } from '../../../../../../test/repositories/in-memory-questions-repository'
+import { NotAllowedError } from '../errors/not-allowed-error'
 import { DeleteQuestionUseCase } from './delete-question'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
@@ -41,11 +42,12 @@ describe('Delete Question Use Case', () => {
 
     await inMemoryQuestionsRepository.create(newQuestion)
 
-    expect(() => {
-      return sut.execute({
-        questionId: 'question-1',
-        authorId: 'author-2',
-      })
-    }).rejects.toBeInstanceOf(Error)
+    const result = await sut.execute({
+      questionId: 'question-1',
+      authorId: 'author-2',
+    })
+
+    expect(result.isError()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 })

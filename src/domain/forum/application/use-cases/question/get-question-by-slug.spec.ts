@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { makeQuestion } from '../../../../../../test/factories/make-question'
 import { InMemoryQuestionsRepository } from '../../../../../../test/repositories/in-memory-questions-repository'
 import { GetQuestionBySlugUseCase } from './get-question-by-slug'
@@ -20,11 +19,14 @@ describe('Get Question By Slug Use Case', () => {
 
     await inMemoryQuestionsRepository.create(newQuestion)
 
-    const { question } = await sut.execute({
+    const result = await sut.execute({
       slug: 'example-question',
     })
 
-    expect(question.id).toBeTruthy()
-    expect(question.title).toEqual(newQuestion.title)
+    expect(result.isSuccess()).toBe(true)
+    if (result.isSuccess()) {
+      expect(result.value?.question.id).toBeTruthy()
+      expect(result.value?.question.title).toEqual(newQuestion.title)
+    }
   })
 })

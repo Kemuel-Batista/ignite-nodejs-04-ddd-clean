@@ -3,6 +3,7 @@ import { makeAnswer } from '../../../../../../test/factories/make-answer'
 import { makeQuestion } from '../../../../../../test/factories/make-question'
 import { InMemoryAnswersRepository } from '../../../../../../test/repositories/in-memory-answers-repository'
 import { InMemoryQuestionsRepository } from '../../../../../../test/repositories/in-memory-questions-repository'
+import { NotAllowedError } from '../errors/not-allowed-error'
 import { ChooseQuestionBestAnswerUseCase } from './choose-question-best-answer'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
@@ -48,11 +49,12 @@ describe('Choose Question Best Answer Use Case', () => {
     await inMemoryQuestionsRepository.create(question)
     await inMemoryAnswersRepository.create(answer)
 
-    expect(() => {
-      return sut.execute({
-        answerId: answer.id.toString(),
-        authorId: 'author-2',
-      })
-    }).rejects.toBeInstanceOf(Error)
+    const result = await sut.execute({
+      answerId: answer.id.toString(),
+      authorId: 'author-2',
+    })
+
+    expect(result.isError()).toBe(true)
+    expect(result.value).toBeInstanceOf(NotAllowedError)
   })
 })
