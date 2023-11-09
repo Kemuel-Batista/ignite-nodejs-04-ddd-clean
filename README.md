@@ -92,6 +92,31 @@ Um agregado nada mais é do que um conjunto de entidades que são manipuladas ao
 
 Quando seguimos a risca, os conceitos do DDD, o agregado ele pode fazer coisas as quais as entidades menores que compoem o agregado não podem fazer
 
+## WhatchedList
+
+Uma lista observada
+
+Imagine que no nosso caso que estamos criando um Fórum, criando uma pergunta, só que essa pergunta ela tem anexos, eu quero permitir que no mesmo momento em que a question está sendo criada, eu quero permitir que no mesmo momento que a question está sendo criada eu crie os anexos dessa question eu configuro isso como um agregado, como vimos anteriormente
+
+Só que o mais importante aqui é que podemos ter vários anexos para a pergunta, se formos pensar no fluxo de criação
+
+Question (Titulo, Conteudo, Anexos)
+
+Na criação isso é muito simples, o watchedlist começa a fazer sentido mais na edição
+
+Quando salvamos a question no banco de dados, estamos apenas criando a pergunta com titulo e conteudo e para cada anexo que foi selecionado, eu crio um registro na tabela de anexos contendo cada um dos anexos selecionados
+
+Na edição do agregado, editar o titulo e conteudo da pergunta é simples, só fazer um update, agora, editar os anexos, já é outra situação, imagine que criamos a pergunta com 3 anexos, quando eu editar, podemos fazer:
+ - Adicionar um novo anexo (create)
+ - Remover o segundo anexo que tinha sido criado previamente (delete)
+ - Editar um anexo existente (update)
+
+Na edição o trabalho de manipular informações que são listas (arrays) dentro de um agregado começa a ser mais complexo
+
+O mais correto nesse caso, é conseguir identificar exatamente, quais foram os anexos que foram adicionados, quais removidos e quais editados 
+
+WhatchedList -> uma classe que permite a gente ter mais informações sobre itens contidos numa lista
+
 ## Bounded Context
 
 Bounded Context (contexto delimitado / subdomínio) é uma técnica para definir limites explícitos em torno de um conjunto de modelos de domínio. Cada Bounded Context é uma fronteira lógica que separa um modelo de domínio específico, com suas próprias regras, termos e limites, de outros modelos de domínio dentro do mesmo sistema.
