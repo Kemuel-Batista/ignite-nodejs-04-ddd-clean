@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { makeQuestion } from '../../../../../../test/factories/make-question'
 import { makeQuestionAttachment } from '../../../../../../test/factories/make-question-attachment'
 import { InMemoryQuestionAttachmentsRepository } from '../../../../../../test/repositories/in-memory-question-attachments-repository'
@@ -13,9 +12,11 @@ let sut: EditQuestionUseCase
 
 describe('Edit Question Use Case', () => {
   beforeEach(() => {
-    inMemoryQuestionsRepository = new InMemoryQuestionsRepository()
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository()
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository(
+      inMemoryQuestionAttachmentsRepository,
+    )
     sut = new EditQuestionUseCase(
       inMemoryQuestionsRepository,
       inMemoryQuestionAttachmentsRepository,

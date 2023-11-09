@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { FetchQuestionCommentsUseCase } from './fetch-question-comments'
 import { InMemoryQuestionCommentsRepository } from '../../../../../../test/repositories/in-memory-question-comments-repository'
