@@ -1,15 +1,20 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { makeAnswer } from '../../../../../../test/factories/make-answer'
 import { InMemoryAnswersRepository } from '../../../../../../test/repositories/in-memory-answers-repository'
 import { FetchQuestionAnswersUseCase } from './fetch-question-answers'
+import { InMemoryAnswerAttachmentsRepository } from '../../../../../../test/repositories/in-memory-answer-attachments-repository'
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository
 let sut: FetchQuestionAnswersUseCase
 
 describe('Fetch Question Answers Use Case', () => {
   beforeEach(() => {
-    inMemoryAnswersRepository = new InMemoryAnswersRepository()
+    inMemoryAnswerAttachmentsRepository =
+      new InMemoryAnswerAttachmentsRepository()
+    inMemoryAnswersRepository = new InMemoryAnswersRepository(
+      inMemoryAnswerAttachmentsRepository,
+    )
     sut = new FetchQuestionAnswersUseCase(inMemoryAnswersRepository)
   })
 
