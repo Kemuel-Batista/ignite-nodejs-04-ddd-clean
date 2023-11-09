@@ -81,6 +81,17 @@ Um agregado tem uma raiz de agregado (aggregate root), que é uma única entidad
 
 O uso deles é uma das principais técnicas para gerenciar a complexidade em sistemas de software baseados em DDD. Ao definir os limites do agregado, é possível criar um modelo de domínio mais claro e focado, com transações e responsabilidades bem definidas para cada objeto no agregado.
 
+- Order -> OrderItem[]
+- Order -> Shipping
+
+Utilizando o escopo que estamos programando, a answer é criada no primeiro momento, e o answercomment vai ser criado no futuro e não ao mesmo tempo em que a answer foi criada
+
+Diferente de um Pedido (Order) com os seus itens (OrderItem[]) os itens do pedido e o pedido em si são criados ao mesmo tempo, configurando assim um agregado
+
+Um agregado nada mais é do que um conjunto de entidades que são manipuladas ao mesmo tempo e elas juntam compõem um algo maior (agregado)
+
+Quando seguimos a risca, os conceitos do DDD, o agregado ele pode fazer coisas as quais as entidades menores que compoem o agregado não podem fazer
+
 ## Bounded Context
 
 Bounded Context (contexto delimitado / subdomínio) é uma técnica para definir limites explícitos em torno de um conjunto de modelos de domínio. Cada Bounded Context é uma fronteira lógica que separa um modelo de domínio específico, com suas próprias regras, termos e limites, de outros modelos de domínio dentro do mesmo sistema.
