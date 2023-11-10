@@ -129,6 +129,22 @@ Além disso, o DDD incentiva a comunicação clara e colaboração entre diferen
 
 O estabelecimento de Bounded Contexts é uma parte importante da modelagem de um sistema baseado em DDD e deve ser conduzido em estreita colaboração entre a equipe de desenvolvimento e especialistas do domínio para garantir que as fronteiras do contexto sejam bem definidas e compreendidas.
 
+- Core: O que dá dinheiro (Ecommerce -> Compra, Catálogo, Pagamento, Entrega)
+- Supporting: Dá suporte para o core funcionar (Ecommerce -> Estoque)
+- Generic: Você precisa, mas não são tão importantes (Ecommerce -> Notificação ao cliente, Promoções, Chat)
+
+Muitas das vezes quando desenvolvemos um software estamos sempre ocupados atender todas as demandas do cliente, mas muitas vezes é melhor focar em desenvolver muito bem o core do domínio (da problemática) e deixar subdomínios genericos ou até quem sabe dos domínios de suporte como serviços tercerizados, será que é preciso desenvolver um chat dentro da aplicação? será que eu preciso desenvolver a parte de notificações do zero dentro do app?
+
+Mais importante do que dividir nossa aplicação em pequenas partes é entender como essas partes se comunicam, porque uma das grandes vantagens de separar em subdominios é para quem utilizar por exemplo arquitetura de microserviços na parte de infraestrutura, porque dividir nossa aplicação em subdominios facilitar identificar aquilo que pode se tornar um microserviço
+
+Mas como estamos desenvolvendo um monolito (única aplicação de software em camadas no qual a interface de usuário e código de acesso aos dados são combinados em um único programa a partir de uma única plataforma), mas mesmo assim precisamos ter uma independência entre os subdomínios (quando o usuário fizer uma compra e essa compra precisar gerar uma nota fiscal que está no subdomínio de Faturamento, eu não vou poder fazer no subdomínio de Compra fazer uma chamada a uma função que está no subdomínio de Faturamento)
+
+- Um subdomínio não pode depender de outra, eu posso deletar o código do subdomínio de Faturamento mas o subdomínio de compra tem que estar funcionando
+
+Quando falamos de comunicação entre subdomínio não tem uma relação direta com comunicação entre microserviços por exemplo, não estamos falando que iremos criar um sistema de mensageria, como estamos desenvolvendo um monolito, todo o código vai estar disponível para ser utilizado e isso não precisa necessariamente ter um sistema de mensageria para se comunicar entre os subdomínios, podemos fazer uma comunicação sincrona (mais direta) mesmo assim não posso criar uma dependência de código entre eles, eu preciso ter um desacoplamento de código mas não preciso ter necessariamente um desacoplamento de infraestrutura (mesma code base)
+
+Observação: não é porque em um sistema de ecommerce um sistema de notificação está como Generic que ele toda vez em outro sistema também será generic
+
 ## Value Objects
 
 Um Value Object (objeto de valor) é uma classe que representa um valor que é importante para o domínio, mas que não possui identidade própria. Em outras palavras, um Value Object é um objeto que é definido pelos seus atributos, em vez de ser definido por uma identidade exclusiva.
